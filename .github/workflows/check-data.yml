@@ -1,0 +1,105 @@
+
+name: Check SecurityCheck airport data
+
+on:
+  push:
+    paths:
+      - "airports.json"
+      - ".github/workflows/check-data.yml"
+  pull_request:
+    paths:
+      - "airports.json"
+      - ".github/workflows/check-data.yml"
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-airports:
+    name: Validate airport database
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get repository files
+        uses: actions/checkout@v4
+
+      - name: Validate JSON and airport records
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          path = Path("airports.json")
+
+          if not path.exists():
+              sys.exit("ERROR: airports.json was not found.")
+
+          try:
+              data = json.loads(path.read_text(encoding="utf-8"))
+          except json.JSONDecodeError as exc:
+              sys.exit(f"ERROR: Invalid JSON: {exc}")
+
+          if not isinstance(data, dict):
+              sys.exit("ERROR: The top level must be a JSON object.")
+
+          airports = data.get("airports")
+          if not isinstance(airports, list) or not airports:
+              sys.exit("ERROR: airports must be a non-empty list.")
+
+          seen_codes = set()
+          errors = []
+
+          for index, airport in enumerate(airports, start=1):
+              if not isinstance(airport, dict):
+                  errors.append(f"Record {index} is not an object.")
+                  continue
+
+              code = airport.get("iata")
+              name = airport.get("name")
+              website = airport.get("website")
+              status = airport.get("status")
+
+              if not isinstance(name, str) or not name.strip():
+                  errors.append(f"Record {index}: missing airport name.")
+
+              if (
+                  not isinstance(code, str)
+                  or len(code) != 3
+                  or not code.isalpha()
+                  or not code.isupper()
+              ):
+                  errors.append(f"Record {index}: invalid IATA code.")
+              elif code in seen_codes:
+                  errors.append(
+                      f"Record {index}: duplicate IATA code {code}."
+                  )
+              else:
+                  seen_codes.add(code)
+
+              if not isinstance(website, str) or not website.startswith("https://"):
+                  errors.append(
+                      f"Record {index}: website must start with https://"
+                  )
+
+              if status not in {"not_verified", "verified", "outdated"}:
+                  errors.append(
+                      f"Record {index}: invalid verification status."
+                  )
+
+          if errors:
+              print("\n".join(errors))
+              sys.exit("Airport database validation failed.")
+
+          print(
+              f"SUCCESS: {len(airports)} airport records "
+              "passed structural checks."
+          )
+          print(
+              "Note: this does not verify the accuracy of security "
+              "rules or website content."
+          )
+          PY

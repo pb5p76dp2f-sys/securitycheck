@@ -1,0 +1,128 @@
+
+{
+  "schema_version": 1,
+  "last_updated": null,
+  "source": "Official airport websites and verified aviation sources",
+  "airports": [
+    {
+      "name": "Frankfurt Airport",
+      "iata": "FRA",
+      "country": "Germany",
+      "website": "https://www.frankfurt-airport.com/",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Munich Airport",
+      "iata": "MUC",
+      "country": "Germany",
+      "website": "https://www.munich-airport.com/",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Palma de Mallorca Airport",
+      "iata": "PMI",
+      "country": "Spain",
+      "website": "https://www.aena.es/en/palma-de-mallorca.html",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Berlin Brandenburg Airport",
+      "iata": "BER",
+      "country": "Germany",
+      "website": "https://ber.berlin-airport.de/",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "London Heathrow Airport",
+      "iata": "LHR",
+      "country": "United Kingdom",
+      "website": "https://www.heathrow.com/",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Adolfo Suárez Madrid-Barajas Airport",
+      "iata": "MAD",
+      "country": "Spain",
+      "website": "https://www.aena.es/en/adolfo-suarez-madrid-barajas.html",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Barcelona-El Prat Airport",
+      "iata": "BCN",
+      "country": "Spain",
+      "website": "https://www.aena.es/en/josep-tarradellas-barcelona-el-prat.html",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Amsterdam Airport Schiphol",
+      "iata": "AMS",
+      "country": "Netherlands",
+      "website": "https://www.schiphol.nl/en/",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Paris Charles de Gaulle Airport",
+      "iata": "CDG",
+      "country": "France",
+      "website": "https://www.parisaeroport.fr/en",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Rome Fiumicino Airport",
+      "iata": "FCO",
+      "country": "Italy",
+      "website": "https://www.adr.it/web/aeroporti-di-roma-en",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Zurich Airport",
+      "iata": "ZRH",
+      "country": "Switzerland",
+      "website": "https://www.flughafen-zuerich.ch/en",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Vienna Airport",
+      "iata": "VIE",
+      "country": "Austria",
+      "website": "https://www.viennaairport.com/",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Copenhagen Airport",
+      "iata": "CPH",
+      "country": "Denmark",
+      "website": "https://www.cph.dk/en",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Dublin Airport",
+      "iata": "DUB",
+      "country": "Ireland",
+      "website": "https://www.dublinairport.com/",
+      "security_info_url": null,
+      "status": "not_verified"
+    },
+    {
+      "name": "Lisbon Airport",
+      "iata": "LIS",
+      "country": "Portugal",
+      "website": "https://www.aeroportolisboa.pt/en/lis/home",
+      "security_info_url": null,
+      "status": "not_verified"
+    }
+  ]
+}

@@ -16,24 +16,39 @@
   --accent: #55c2a5;
   --border: #34465c;
 }
+
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
-  padding: 22px 16px 40px;
+  padding: 18px 16px 40px;
   background: var(--bg);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
-main { max-width: 620px; margin: auto; }
+
+main {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
-.logo { font-size: 23px; font-weight: 800; letter-spacing: -.7px; }
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.5px;
+}
+
 .logo span { color: var(--accent); }
+
 button, input { font: inherit; }
+
 button {
   cursor: pointer;
   border: 1px solid var(--border);
@@ -42,10 +57,13 @@ button {
   background: var(--panel2);
   color: var(--text);
 }
+
 button:active { opacity: .75; }
-.language { font-size: 13px; }
-h1 { font-size: 29px; margin: 0 0 8px; }
-.subtitle { color: var(--muted); line-height: 1.5; margin: 0 0 22px; }
+
+.language {
+  font-size: 13px;
+}
+
 .search {
   width: 100%;
   padding: 16px;
@@ -56,53 +74,71 @@ h1 { font-size: 29px; margin: 0 0 8px; }
   outline: none;
   font-size: 16px;
 }
-.search:focus { border-color: var(--accent); }
+
+.search:focus {
+  border-color: var(--accent);
+}
+
 .section-label {
   color: var(--muted);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .8px;
-  margin: 22px 0 10px;
+  margin: 20px 0 10px;
 }
+
 .airport-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
+
 .airport-chip {
   font-size: 13px;
   padding: 9px 11px;
   border-radius: 20px;
 }
-.airport-chip.selected {
-  border-color: var(--accent);
-  color: var(--accent);
+
+.empty {
+  color: var(--muted);
+  font-size: 13px;
 }
-.empty { color: var(--muted); font-size: 13px; }
+
 .results { margin-top: 24px; }
+
 .airport-card {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 18px;
-  margin-bottom: 16px;
 }
+
 .airport-heading {
   display: flex;
   justify-content: space-between;
   gap: 12px;
   align-items: flex-start;
 }
-.airport-name { font-size: 20px; font-weight: 750; }
+
+.airport-name {
+  font-size: 20px;
+  font-weight: 750;
+}
+
 .airport-code {
   color: var(--accent);
   font-weight: 800;
   font-size: 14px;
   margin-top: 5px;
 }
-.country { color: var(--muted); font-size: 13px; margin-top: 5px; }
-.favorite { font-size: 21px; padding: 7px 10px; }
+
+.country {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 5px;
+}
+
 .status {
   color: var(--muted);
   background: var(--panel2);
@@ -112,10 +148,12 @@ h1 { font-size: 29px; margin: 0 0 8px; }
   line-height: 1.5;
   margin-top: 16px;
 }
+
 .category {
   border-top: 1px solid var(--border);
   margin-top: 12px;
 }
+
 .category button {
   width: 100%;
   border: 0;
@@ -126,19 +164,26 @@ h1 { font-size: 29px; margin: 0 0 8px; }
   justify-content: space-between;
   font-weight: 650;
 }
+
 .category-content {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows .25s ease;
 }
-.category.open .category-content { grid-template-rows: 1fr; }
+
+.category.open .category-content {
+  grid-template-rows: 1fr;
+}
+
 .category-inner {
   overflow: hidden;
   color: var(--muted);
   font-size: 13px;
   line-height: 1.6;
 }
+
 .category-inner p { margin: 0 0 14px; }
+
 .website {
   display: inline-block;
   margin-top: 16px;
@@ -146,68 +191,46 @@ h1 { font-size: 29px; margin: 0 0 8px; }
   text-decoration: none;
   font-weight: 650;
 }
+
 .website:hover { text-decoration: underline; }
-footer {
-  text-align: center;
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 35px;
-  line-height: 1.6;
+
+.hidden { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .category-content { transition: none; }
 }
-.hidden { display: none; }
 </style>
 </head>
 
 <body>
 <main>
-<header>
-  <div class="logo">Security<span>Check</span></div>
-  <button class="language" id="languageButton">EN</button>
-</header>
+  <header>
+    <div class="logo">Security<span>Check</span></div>
+    <button class="language" id="languageButton">EN</button>
+  </header>
 
-<h1 id="headline">Flughafensicherheit. Einfach erklärt.</h1>
-<p class="subtitle" id="subtitle">
-  Finde die Sicherheitsbestimmungen deines Flughafens.
-</p>
+  <input
+    id="search"
+    class="search"
+    type="search"
+    placeholder="Flughafen oder Kürzel suchen …"
+    autocomplete="off"
+  >
 
-<input
-  id="search"
-  class="search"
-  type="search"
-  placeholder="Flughafen oder Kürzel suchen …"
-  autocomplete="off"
->
+  <section id="suggestions">
+    <div class="section-label" id="suggestionLabel">Vorschläge</div>
+    <div class="airport-list" id="suggestionList"></div>
+  </section>
 
-<div id="suggestions">
-  <div class="section-label" id="favoritesLabel">Deine Favoriten</div>
-  <div class="airport-list" id="favorites"></div>
-
-  <div class="section-label" id="recentLabel">Zuletzt gesucht</div>
-  <div class="airport-list" id="recent"></div>
-
-  <div class="section-label" id="allLabel">Flughäfen</div>
-  <div class="airport-list" id="airportResults"></div>
-</div>
-
-<div class="results" id="selectedAirport"></div>
-
-<footer id="footer">
-  SecurityCheck ist ein Informationsprojekt. Bitte prüfe wichtige Angaben
-  vor deiner Reise zusätzlich auf der offiziellen Website des Flughafens.
-</footer>
+  <section class="results" id="selectedAirport"></section>
 </main>
 
 <script>
 const translations = {
   de: {
-    headline: "Flughafensicherheit. Einfach erklärt.",
-    subtitle: "Finde die Sicherheitsbestimmungen deines Flughafens.",
     search: "Flughafen oder Kürzel suchen …",
-    favorites: "Deine Favoriten",
     recent: "Zuletzt gesucht",
-    all: "Flughäfen",
-    noFavorites: "Noch keine Favoriten gespeichert.",
-    noRecent: "Deine zuletzt gesuchten Flughäfen erscheinen hier.",
+    suggestions: "Vorschläge",
     notFound: "Keine passenden Flughäfen gefunden.",
     verified: "Die Sicherheitsregeln für diesen Flughafen sind noch nicht verifiziert.",
     wait: "Aktuelle Wartezeiten sind derzeit nicht verfügbar.",
@@ -227,20 +250,13 @@ const translations = {
     ],
     website: "Offizielle Flughafen-Website öffnen →",
     waitTitle: "Wartezeiten",
-    rulesTitle: "Sicherheitsinformationen",
-    favoriteAdd: "Als Favorit speichern",
-    favoriteRemove: "Aus Favoriten entfernen",
-    footer: "SecurityCheck ist ein Informationsprojekt. Bitte prüfe wichtige Angaben vor deiner Reise zusätzlich auf der offiziellen Website des Flughafens."
+    rulesTitle: "Sicherheitsinformationen"
   },
+
   en: {
-    headline: "Airport security. Made simple.",
-    subtitle: "Find the security information for your airport.",
     search: "Search airport or code …",
-    favorites: "Your favourites",
     recent: "Recently searched",
-    all: "Airports",
-    noFavorites: "No favourites saved yet.",
-    noRecent: "Your recently searched airports will appear here.",
+    suggestions: "Suggestions",
     notFound: "No matching airports found.",
     verified: "Security rules for this airport have not yet been verified.",
     wait: "Current waiting times are not available.",
@@ -260,10 +276,7 @@ const translations = {
     ],
     website: "Visit official airport website →",
     waitTitle: "Waiting times",
-    rulesTitle: "Security information",
-    favoriteAdd: "Save as favourite",
-    favoriteRemove: "Remove from favourites",
-    footer: "SecurityCheck is an information project. Please also check important details on the airport's official website before travelling."
+    rulesTitle: "Security information"
   }
 };
 
@@ -274,92 +287,83 @@ let selected = null;
 const $ = id => document.getElementById(id);
 const t = () => translations[language];
 
-function getStored(key) {
-  try { return JSON.parse(localStorage.getItem(key) || "[]"); }
-  catch { return []; }
-}
-
-function saveStored(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-function renderSuggestions() {
-  const favorites = getStored("sc-favorites");
-  const recent = getStored("sc-recent");
-
-  renderChips("favorites", favorites, t().noFavorites);
-  renderChips("recent", recent, t().noRecent);
-}
-
-function renderChips(elementId, codes, emptyText) {
-  const element = $(elementId);
-  element.innerHTML = "";
-
-  const matching = codes
-    .map(code => airports.find(a => a.iata === code))
-    .filter(Boolean);
-
-  if (!matching.length) {
-    element.innerHTML = `<span class="empty">${emptyText}</span>`;
-    return;
+function getRecent() {
+  try {
+    return JSON.parse(localStorage.getItem("sc-recent") || "[]");
+  } catch {
+    return [];
   }
-
-  matching.forEach(airport => {
-    const button = document.createElement("button");
-    button.className = "airport-chip";
-    button.textContent = `${airport.iata} · ${airport.name}`;
-    button.addEventListener("click", () => selectAirport(airport));
-    element.appendChild(button);
-  });
 }
 
-function renderAirportList(query = "") {
-  const element = $("airportResults");
-  element.innerHTML = "";
+function saveRecent(list) {
+  localStorage.setItem("sc-recent", JSON.stringify(list));
+}
 
-  const matches = airports.filter(a =>
-    `${a.name} ${a.iata} ${a.country}`.toLowerCase()
-      .includes(query.toLowerCase())
-  );
+function getAirportByCode(code) {
+  return airports.find(airport => airport.iata === code);
+}
+
+function renderSuggestions(query = "") {
+  const list = $("suggestionList");
+  list.innerHTML = "";
+
+  const recentCodes = getRecent();
+
+  let matches;
+
+  if (query.trim()) {
+    matches = airports.filter(airport =>
+      `${airport.name} ${airport.iata} ${airport.country}`
+        .toLowerCase()
+        .includes(query.trim().toLowerCase())
+    ).slice(0, 5);
+
+    $("suggestionLabel").textContent = t().suggestions;
+  } else if (recentCodes.length) {
+    matches = recentCodes
+      .slice(0, 5)
+      .map(getAirportByCode)
+      .filter(Boolean);
+
+    $("suggestionLabel").textContent = t().recent;
+  } else {
+    const popularCodes = ["FRA", "LHR", "CDG", "AMS", "MAD"];
+
+    matches = popularCodes
+      .map(getAirportByCode)
+      .filter(Boolean);
+
+    $("suggestionLabel").textContent = t().suggestions;
+  }
 
   if (!matches.length) {
-    element.innerHTML = `<span class="empty">${t().notFound}</span>`;
+    list.innerHTML = `<span class="empty">${t().notFound}</span>`;
     return;
   }
 
-  matches.slice(0, 20).forEach(airport => {
+  matches.forEach(airport => {
     const button = document.createElement("button");
     button.className = "airport-chip";
     button.textContent = `${airport.iata} · ${airport.name}`;
     button.addEventListener("click", () => selectAirport(airport));
-    element.appendChild(button);
+    list.appendChild(button);
   });
 }
 
 function selectAirport(airport) {
   selected = airport;
 
-  let recent = getStored("sc-recent");
-  recent = [airport.iata, ...recent.filter(code => code !== airport.iata)].slice(0, 10);
-  saveStored("sc-recent", recent);
+  const recent = getRecent();
+  const updatedRecent = [
+    airport.iata,
+    ...recent.filter(code => code !== airport.iata)
+  ].slice(0, 5);
 
-  renderSuggestions();
-  renderSelectedAirport();
+  saveRecent(updatedRecent);
+
   $("search").value = "";
-  renderAirportList();
-}
+  $("suggestions").classList.add("hidden");
 
-function toggleFavorite(code) {
-  let favorites = getStored("sc-favorites");
-
-  if (favorites.includes(code)) {
-    favorites = favorites.filter(item => item !== code);
-  } else {
-    favorites = [code, ...favorites];
-  }
-
-  saveStored("sc-favorites", favorites);
-  renderSuggestions();
   renderSelectedAirport();
 }
 
@@ -371,13 +375,10 @@ function renderSelectedAirport() {
     return;
   }
 
-  const favorite = getStored("sc-favorites").includes(selected.iata);
-  const favoriteLabel = favorite ? "★" : "☆";
-
   const safeWebsite = selected.website &&
     /^https:\/\/[^ ]+$/i.test(selected.website)
-    ? selected.website
-    : null;
+      ? selected.website
+      : null;
 
   element.innerHTML = `
     <div class="airport-card">
@@ -387,10 +388,6 @@ function renderSelectedAirport() {
           <div class="airport-code"></div>
           <div class="country"></div>
         </div>
-        <button class="favorite" id="favoriteButton"
-          aria-label="${favorite ? t().favoriteRemove : t().favoriteAdd}">
-          ${favoriteLabel}
-        </button>
       </div>
 
       <div class="status">${t().verified}</div>
@@ -401,9 +398,10 @@ function renderSelectedAirport() {
       <div class="section-label">${t().rulesTitle}</div>
       <div id="categories"></div>
 
-      ${safeWebsite
-        ? `<a class="website" href="${safeWebsite}" target="_blank" rel="noopener">${t().website}</a>`
-        : `<div class="status">${t().website}: not available</div>`
+      ${
+        safeWebsite
+          ? `<a class="website" href="${safeWebsite}" target="_blank" rel="noopener">${t().website}</a>`
+          : ""
       }
     </div>
   `;
@@ -411,8 +409,6 @@ function renderSelectedAirport() {
   element.querySelector(".airport-name").textContent = selected.name;
   element.querySelector(".airport-code").textContent = selected.iata;
   element.querySelector(".country").textContent = selected.country || "";
-
-  $("favoriteButton").addEventListener("click", () => toggleFavorite(selected.iata));
 
   const categories = $("categories");
 
@@ -432,6 +428,7 @@ function renderSelectedAirport() {
 
     const paragraph = document.createElement("p");
     paragraph.textContent = t().categoryInfo[index];
+
     inner.appendChild(paragraph);
     content.appendChild(inner);
 
@@ -448,19 +445,25 @@ function renderSelectedAirport() {
 }
 
 function updateLanguage() {
-  $("headline").textContent = t().headline;
-  $("subtitle").textContent = t().subtitle;
   $("search").placeholder = t().search;
-  $("favoritesLabel").textContent = t().favorites;
-  $("recentLabel").textContent = t().recent;
-  $("allLabel").textContent = t().all;
-  $("footer").textContent = t().footer;
   $("languageButton").textContent = language === "de" ? "EN" : "DE";
 
-  renderSuggestions();
-  renderAirportList($("search").value);
+  if (!$("suggestions").classList.contains("hidden")) {
+    renderSuggestions($("search").value);
+  }
+
   renderSelectedAirport();
 }
+
+$("search").addEventListener("focus", () => {
+  $("suggestions").classList.remove("hidden");
+  renderSuggestions($("search").value);
+});
+
+$("search").addEventListener("input", event => {
+  $("suggestions").classList.remove("hidden");
+  renderSuggestions(event.target.value);
+});
 
 $("languageButton").addEventListener("click", () => {
   language = language === "de" ? "en" : "de";
@@ -468,29 +471,25 @@ $("languageButton").addEventListener("click", () => {
   updateLanguage();
 });
 
-$("search").addEventListener("input", event => {
-  renderAirportList(event.target.value);
-});
-
 async function init() {
   try {
     const response = await fetch("./airports.json");
-    if (!response.ok) throw new Error("Airport data unavailable");
+
+    if (!response.ok) {
+      throw new Error("Airport data unavailable");
+    }
 
     const data = await response.json();
     airports = Array.isArray(data) ? data : data.airports;
 
-    if (!Array.isArray(airports)) throw new Error("Invalid airport data");
+    if (!Array.isArray(airports)) {
+      throw new Error("Invalid airport data");
+    }
 
-    renderSuggestions();
-    renderAirportList();
     updateLanguage();
-
-    const firstAirport = airports.find(a => a.iata === "FRA");
-    if (firstAirport) selectAirport(firstAirport);
-
+    renderSuggestions();
   } catch (error) {
-    $("airportResults").textContent =
+    $("suggestionList").textContent =
       "Die Flughafendaten konnten nicht geladen werden. Bitte versuche es später erneut.";
   }
 }

@@ -1,97 +1,501 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#12314d">
-<meta name="description" content="SecurityCheck hilft dir, Sicherheitsbestimmungen an Flughäfen schnell zu finden.">
-<title>SecurityCheck – Flughafenregeln einfach finden</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>SecurityCheck</title>
+
 <style>
-:root{color-scheme:light dark;--navy:#12314d;--blue:#477fa8;--bg:light-dark(#f4f7fb,#101820);--surface:light-dark(#fff,#18232d);--text:light-dark(#172534,#f2f6fa);--muted:light-dark(#607080,#aab8c5);--border:light-dark(#dce4ec,#354452);--soft:light-dark(#edf3f9,#22313e);--green:light-dark(#176b46,#7dd9ad);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text)}button,input{font:inherit}button{cursor:pointer}.app{max-width:720px;margin:auto;min-height:100dvh;background:var(--bg)}header{background:var(--navy);color:white;padding:24px 18px 22px;border-radius:0 0 22px 22px}.brand{display:flex;gap:12px;align-items:center;margin-bottom:22px}.logo{width:46px;height:46px;display:grid;place-items:center;background:#294c6a;border-radius:14px;font-size:25px}.brand h1{font-size:24px;margin:0 0 3px}.brand p{margin:0;color:#d7e5f2;font-size:13px}.eyebrow{font-size:11px;font-weight:750;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 9px}.search-label{display:block;font-weight:700;margin-bottom:9px}.search-wrap{position:relative}.search-wrap span{position:absolute;left:14px;top:12px;font-size:19px}.search-wrap input{width:100%;padding:14px 14px 14px 43px;border-radius:13px;border:1px solid #cbd8e4;background:#fff;color:#172534;font-size:16px;outline-offset:3px}.content{padding:20px 15px 35px}.results{display:grid;gap:8px;margin-top:10px}.results:empty{display:none}.selected-airport{display:flex;align-items:center;gap:12px;padding:12px;margin-top:14px;border:1px solid var(--blue);border-radius:14px;background:var(--soft)}.selected-airport .airport-name{font-weight:800}.selected-airport .country{display:block}.selection-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:750;color:var(--muted);margin:16px 0 0}.airport{display:flex;align-items:center;gap:12px;text-align:left;width:100%;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--text)}.airport.selected{border:1.5px solid var(--blue);background:var(--soft)}.code{min-width:48px;height:42px;display:grid;place-items:center;background:#e3edf8;color:#173e62;border-radius:10px;font-size:12px;font-weight:800}.airport-name{font-weight:700}.country{color:var(--muted);font-size:13px;margin-top:3px}.check{margin-left:auto;color:var(--blue);font-size:20px}.section-title{font-size:19px;margin:23px 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 14px}.categories{display:grid;gap:9px}.category{border:1px solid var(--border);border-radius:15px;overflow:hidden;background:var(--surface)}.cat-button{width:100%;border:0;background:transparent;color:var(--text);display:flex;align-items:center;gap:12px;padding:13px;text-align:left}.cat-button[aria-expanded=true]{background:var(--soft)}.cat-icon{width:41px;height:41px;display:grid;place-items:center;border-radius:12px;background:var(--soft);font-size:21px}.cat-label{font-weight:700;flex:1}.chevron{color:var(--muted);font-size:18px}.details{padding:0 14px 15px;line-height:1.5;font-size:14px}.details h3{font-size:16px;margin:8px 0}.pill{display:inline-block;border-radius:999px;padding:5px 9px;background:var(--soft);font-size:11px;font-weight:750;margin:3px 0 8px}.source{border-top:1px solid var(--border);margin-top:12px;padding-top:10px;font-size:12px;color:var(--muted)}.official{display:block;text-align:center;margin-top:11px;padding:11px;border-radius:11px;background:var(--navy);color:white;text-decoration:none;font-weight:700;font-size:13px}.notice{margin-top:17px;background:var(--soft);border-radius:13px;padding:13px;font-size:12px;color:var(--muted);line-height:1.5}.notice strong{color:var(--text)}footer{text-align:center;padding:0 18px 26px;color:var(--muted);font-size:12px}.empty{padding:18px;text-align:center;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:13px}.hidden{display:none!important}@media(min-width:600px){header{padding:30px 28px}.content{padding:24px 28px 38px}.categories{grid-template-columns:1fr}.section-title{margin-top:20px}}
+:root {
+  --bg: #101827;
+  --panel: #1b293b;
+  --panel2: #24354a;
+  --text: #f4f7fb;
+  --muted: #a9b7c8;
+  --accent: #55c2a5;
+  --border: #34465c;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 22px 16px 40px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+main { max-width: 620px; margin: auto; }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+.logo { font-size: 23px; font-weight: 800; letter-spacing: -.7px; }
+.logo span { color: var(--accent); }
+button, input { font: inherit; }
+button {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 10px 13px;
+  background: var(--panel2);
+  color: var(--text);
+}
+button:active { opacity: .75; }
+.language { font-size: 13px; }
+h1 { font-size: 29px; margin: 0 0 8px; }
+.subtitle { color: var(--muted); line-height: 1.5; margin: 0 0 22px; }
+.search {
+  width: 100%;
+  padding: 16px;
+  border-radius: 13px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  outline: none;
+  font-size: 16px;
+}
+.search:focus { border-color: var(--accent); }
+.section-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  margin: 22px 0 10px;
+}
+.airport-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.airport-chip {
+  font-size: 13px;
+  padding: 9px 11px;
+  border-radius: 20px;
+}
+.airport-chip.selected {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.empty { color: var(--muted); font-size: 13px; }
+.results { margin-top: 24px; }
+.airport-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+.airport-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+.airport-name { font-size: 20px; font-weight: 750; }
+.airport-code {
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.country { color: var(--muted); font-size: 13px; margin-top: 5px; }
+.favorite { font-size: 21px; padding: 7px 10px; }
+.status {
+  color: var(--muted);
+  background: var(--panel2);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+.category {
+  border-top: 1px solid var(--border);
+  margin-top: 12px;
+}
+.category button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 15px 0;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 650;
+}
+.category-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .25s ease;
+}
+.category.open .category-content { grid-template-rows: 1fr; }
+.category-inner {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.category-inner p { margin: 0 0 14px; }
+.website {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 650;
+}
+.website:hover { text-decoration: underline; }
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 35px;
+  line-height: 1.6;
+}
+.hidden { display: none; }
 </style>
 </head>
+
 <body>
-<div class="app">
+<main>
 <header>
- <div class="brand"><div class="logo" aria-hidden="true">✈</div><div><h1>SecurityCheck</h1><p>Dein Flughafen. Deine Regeln.</p></div></div>
- <label class="search-label" for="airportSearch">Welchen Flughafen suchst du?</label>
- <div class="search-wrap"><span aria-hidden="true">⌕</span><input id="airportSearch" type="search" placeholder="Name oder Kürzel, z. B. Palma oder PMI" autocomplete="off"></div>
+  <div class="logo">Security<span>Check</span></div>
+  <button class="language" id="languageButton">EN</button>
 </header>
-<main class="content">
- <p class="eyebrow">Flughafen auswählen</p>
- <div class="results" id="airportResults" aria-live="polite"></div>
- <div class="selected-airport" id="selectedAirport" aria-live="polite"></div>
- <h2 class="section-title" id="selectedHeading">Sicherheitskontrolle</h2>
- <p class="sub" id="selectedSub">Tippe auf eine Kategorie, um die Regeln direkt hier zu öffnen.</p>
- <div class="categories" id="categories"></div>
- <div class="notice"><strong>Wichtig:</strong> Sicherheitsregeln können sich je nach Kontrollstelle und Reisetag unterscheiden. Diese erste Version ist ein Prototyp, keine Live-Datenbank. Prüfe die offiziellen Angaben vor dem Abflug.</div>
-</main>
-<footer>SecurityCheck · unabhängiges Informationsprojekt</footer>
+
+<h1 id="headline">Flughafensicherheit. Einfach erklärt.</h1>
+<p class="subtitle" id="subtitle">
+  Finde die Sicherheitsbestimmungen deines Flughafens.
+</p>
+
+<input
+  id="search"
+  class="search"
+  type="search"
+  placeholder="Flughafen oder Kürzel suchen …"
+  autocomplete="off"
+>
+
+<div id="suggestions">
+  <div class="section-label" id="favoritesLabel">Deine Favoriten</div>
+  <div class="airport-list" id="favorites"></div>
+
+  <div class="section-label" id="recentLabel">Zuletzt gesucht</div>
+  <div class="airport-list" id="recent"></div>
+
+  <div class="section-label" id="allLabel">Flughäfen</div>
+  <div class="airport-list" id="airportResults"></div>
 </div>
+
+<div class="results" id="selectedAirport"></div>
+
+<footer id="footer">
+  SecurityCheck ist ein Informationsprojekt. Bitte prüfe wichtige Angaben
+  vor deiner Reise zusätzlich auf der offiziellen Website des Flughafens.
+</footer>
+</main>
+
 <script>
-const airports=[
-{code:"FRA",name:"Frankfurt am Main",country:"Deutschland",url:"https://www.frankfurt-airport.com/en/travel-planning/check-in-luggage-controls/security-check.html/d20260305lh866.html"},
-{code:"MUC",name:"München",country:"Deutschland",url:"https://www.munich-airport.de/sicherheits-und-passkontrolle-3897036"},
-{code:"PMI",name:"Palma de Mallorca",country:"Spanien",url:"https://www.aena.es/en/palma-de-mallorca.html"},
-{code:"BER",name:"Berlin Brandenburg",country:"Deutschland",url:"https://ber.berlin-airport.de/"},
-{code:"LHR",name:"London Heathrow",country:"Vereinigtes Königreich",url:"https://www.heathrow.com/"},
-{code:"BCN",name:"Barcelona",country:"Spanien",url:"https://www.aena.es/en/barcelona-el-prat.html"},
-{code:"AMS",name:"Amsterdam Schiphol",country:"Niederlande",url:"https://www.schiphol.nl/en/"},
-{code:"NUE",name:"Nürnberg",country:"Deutschland",url:"https://www.airport-nuernberg.de/en/"},
-{code:"VIE",name:"Wien",country:"Österreich",url:"https://www.viennaairport.com/en/passengers"},
-{code:"ZRH",name:"Zürich",country:"Schweiz",url:"https://www.flughafen-zuerich.ch/en/passengers"}
-];
-const cats=[
-{id:"liquids",icon:"💧",name:"Flüssigkeiten"},
-{id:"electronics",icon:"💻",name:"Elektronische Geräte"},
-{id:"medication",icon:"💊",name:"Medikamente & Babynahrung"},
-{id:"prohibited",icon:"🚫",name:"Verbotene Gegenstände"},
-{id:"other",icon:"🧳",name:"Weitere Bestimmungen"}
-];
-const rules={
-FRA:{
-liquids:{title:"Flüssigkeiten im Handgepäck",status:"Kontrollstellenabhängig",text:"Die erlaubte Behältergröße kann je nach Kontrollstelle abweichen. Prüfe vor der Reise die offizielle Information für deinen Abflugbereich; verlasse dich nicht allein auf eine allgemeine 100-ml- oder 2-Liter-Angabe.",source:"Frankfurt Airport"},
-electronics:{title:"Elektronische Geräte",status:"Anweisungen vor Ort beachten",text:"Ob Laptop, Tablet oder Kamera beim Screening aus dem Gepäck genommen werden müssen, hängt von der Kontrollstelle ab. Folge den Schildern und Anweisungen des Sicherheitspersonals.",source:"Frankfurt Airport"},
-medication:{title:"Medikamente & Babynahrung",status:"Sonderregelungen möglich",text:"Notwendige flüssige Medikamente und Babynahrung können besonderen Regeln unterliegen. Halte sie für die Kontrolle zugänglich und prüfe die offiziellen Hinweise.",source:"Flughafen / zuständige Behörden"},
-prohibited:{title:"Verbotene Gegenstände",status:"Gegenstand einzeln prüfen",text:"Waffen, bestimmte scharfe Gegenstände und gefährliche Stoffe sind im Handgepäck verboten oder eingeschränkt. Prüfe die konkrete Gegenstandsart anhand der offiziellen Liste.",source:"Bundespolizei / Flughafen"},
-other:{title:"Weitere Bestimmungen",status:"Airline-Regeln zusätzlich prüfen",text:"Maße und Gewicht des Handgepäcks werden zusätzlich von deiner Fluggesellschaft festgelegt. Sicherheitskontrollen können weitere Anweisungen geben.",source:"Flughafen und Fluggesellschaft"}
-},
-MUC:{
-liquids:{title:"Flüssigkeiten im Handgepäck",status:"Offizielle Hinweise prüfen",text:"Die Regeln können von der eingesetzten Kontrolltechnik abhängen. Bitte öffne die offizielle Flughafeninformation, um die aktuell gültige Behältergröße und Beutelpflicht zu bestätigen.",source:"Flughafen München"},
-electronics:{title:"Elektronische Geräte",status:"Anweisungen vor Ort beachten",text:"Prüfe die aktuellen Hinweise des Flughafens. Je nach Kontrolltechnik können Geräte im Gepäck bleiben oder separat vorgelegt werden müssen.",source:"Flughafen München"},
-medication:{title:"Medikamente & Babynahrung",status:"Sonderregelungen möglich",text:"Notwendige Medikamente und Babynahrung können besonderen Regeln unterliegen. Prüfe die offiziellen Hinweise und halte relevante Nachweise gegebenenfalls bereit.",source:"Flughafen München"},
-prohibited:{title:"Verbotene Gegenstände",status:"Gegenstand einzeln prüfen",text:"Für Waffen, scharfe Gegenstände und Gefahrgüter gelten besondere Verbote oder Einschränkungen. Prüfe den konkreten Gegenstand in der offiziellen Liste.",source:"Flughafen München"},
-other:{title:"Weitere Bestimmungen",status:"Airline-Regeln zusätzlich prüfen",text:"Prüfe zusätzlich die Handgepäckmaße und das Gewicht deiner Fluggesellschaft und beachte die Anweisungen an der Sicherheitskontrolle.",source:"Flughafen München"}
-}
+const translations = {
+  de: {
+    headline: "Flughafensicherheit. Einfach erklärt.",
+    subtitle: "Finde die Sicherheitsbestimmungen deines Flughafens.",
+    search: "Flughafen oder Kürzel suchen …",
+    favorites: "Deine Favoriten",
+    recent: "Zuletzt gesucht",
+    all: "Flughäfen",
+    noFavorites: "Noch keine Favoriten gespeichert.",
+    noRecent: "Deine zuletzt gesuchten Flughäfen erscheinen hier.",
+    notFound: "Keine passenden Flughäfen gefunden.",
+    verified: "Die Sicherheitsregeln für diesen Flughafen sind noch nicht verifiziert.",
+    wait: "Aktuelle Wartezeiten sind derzeit nicht verfügbar.",
+    categories: [
+      "Flüssigkeiten",
+      "Elektronische Geräte",
+      "Medikamente & Babynahrung",
+      "Verbotene Gegenstände",
+      "Weitere Informationen"
+    ],
+    categoryInfo: [
+      "Die geltenden Flüssigkeitsregeln müssen noch anhand einer offiziellen Quelle für diesen Flughafen geprüft werden.",
+      "Die Regeln zur Kontrolle elektronischer Geräte müssen noch anhand einer offiziellen Quelle geprüft werden.",
+      "Bitte prüfe die geltenden Ausnahmen und Nachweispflichten auf der offiziellen Website des Flughafens.",
+      "Die Liste der verbotenen Gegenstände muss noch anhand einer offiziellen Quelle geprüft werden.",
+      "Weitere Informationen zu den Sicherheitskontrollen findest du auf der offiziellen Website des Flughafens."
+    ],
+    website: "Offizielle Flughafen-Website öffnen →",
+    waitTitle: "Wartezeiten",
+    rulesTitle: "Sicherheitsinformationen",
+    favoriteAdd: "Als Favorit speichern",
+    favoriteRemove: "Aus Favoriten entfernen",
+    footer: "SecurityCheck ist ein Informationsprojekt. Bitte prüfe wichtige Angaben vor deiner Reise zusätzlich auf der offiziellen Website des Flughafens."
+  },
+  en: {
+    headline: "Airport security. Made simple.",
+    subtitle: "Find the security information for your airport.",
+    search: "Search airport or code …",
+    favorites: "Your favourites",
+    recent: "Recently searched",
+    all: "Airports",
+    noFavorites: "No favourites saved yet.",
+    noRecent: "Your recently searched airports will appear here.",
+    notFound: "No matching airports found.",
+    verified: "Security rules for this airport have not yet been verified.",
+    wait: "Current waiting times are not available.",
+    categories: [
+      "Liquids",
+      "Electronic devices",
+      "Medication & baby food",
+      "Prohibited items",
+      "Further information"
+    ],
+    categoryInfo: [
+      "The applicable liquid rules still need to be checked against an official source for this airport.",
+      "The rules for screening electronic devices still need to be checked against an official source.",
+      "Please check applicable exemptions and documentation requirements on the airport's official website.",
+      "The list of prohibited items still needs to be checked against an official source.",
+      "Further information about security screening is available on the airport's official website."
+    ],
+    website: "Visit official airport website →",
+    waitTitle: "Waiting times",
+    rulesTitle: "Security information",
+    favoriteAdd: "Save as favourite",
+    favoriteRemove: "Remove from favourites",
+    footer: "SecurityCheck is an information project. Please also check important details on the airport's official website before travelling."
+  }
 };
-let selected="FRA", expanded="liquids";
-const results=document.getElementById("airportResults"), search=document.getElementById("airportSearch"), categories=document.getElementById("categories"), selectedAirport=document.getElementById("selectedAirport");
-function renderSelectedAirport(){
- const a=airports.find(x=>x.code===selected);
- selectedAirport.innerHTML=`<span class="code">${a.code}</span><span><span class="airport-name">${a.name}</span><span class="country">${a.country} · Ausgewählter Flughafen</span></span><span class="check" aria-hidden="true">✓</span>`;
+
+let language = localStorage.getItem("sc-language") || "de";
+let airports = [];
+let selected = null;
+
+const $ = id => document.getElementById(id);
+const t = () => translations[language];
+
+function getStored(key) {
+  try { return JSON.parse(localStorage.getItem(key) || "[]"); }
+  catch { return []; }
 }
-function renderAirports(){
- const q=search.value.trim().toLocaleLowerCase("de");
- if(!q){results.innerHTML="";renderSelectedAirport();return;}
- const matches=airports.filter(a=>(a.name+" "+a.code+" "+a.country).toLocaleLowerCase("de").includes(q));
- results.innerHTML=matches.length?matches.slice(0,7).map(a=>`<button class="airport ${a.code===selected?"selected":""}" data-code="${a.code}" aria-pressed="${a.code===selected}"><span class="code">${a.code}</span><span><span class="airport-name">${a.name}</span><span class="country" style="display:block">${a.country}</span></span><span class="check">${a.code===selected?"✓":"›"}</span></button>`).join(""):`<div class="empty">Kein Flughafen gefunden. Versuche einen anderen Namen oder Code.</div>`;
- results.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{selected=b.dataset.code;expanded="liquids";search.value="";results.innerHTML="";renderSelectedAirport();renderCategories();document.getElementById("selectedHeading").textContent="Sicherheitskontrolle";document.getElementById("selectedSub").textContent="Tippe auf eine Kategorie, um die Regeln direkt hier zu öffnen.";}));
+
+function saveStored(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
 }
-function renderCategories(){
- const airport=airports.find(a=>a.code===selected);
- categories.innerHTML=cats.map(c=>{
-  const open=expanded===c.id, rule=rules[selected]?.[c.id];
-  const title=rule?.title||c.name, status=rule?.status||"Noch nicht verifiziert";
-  const body=rule?.text||"Für diesen Flughafen haben wir in dieser Kategorie noch keine geprüfte Regel hinterlegt. Öffne die offizielle Flughafenwebsite und prüfe die aktuellen Bestimmungen.";
-  const source=rule?.source||"Offizielle Flughafenwebsite";
-  return `<section class="category"><button class="cat-button" data-cat="${c.id}" aria-expanded="${open}"><span class="cat-icon">${c.icon}</span><span class="cat-label">${c.name}</span><span class="chevron">${open?"⌃":"⌄"}</span></button>${open?`<div class="details"><h3>${title}</h3><span class="pill">${status}</span><div>${body}</div><div class="source">Quelle: ${source}<br>Regelstatus: Prototyp – vor der Reise offiziell überprüfen.</div><a class="official" href="${airport.url}" target="_blank" rel="noopener noreferrer">Offizielle Flughafenwebsite ↗</a></div>`:""}</section>`;
- }).join("");
- categories.querySelectorAll("[data-cat]").forEach(b=>b.addEventListener("click",()=>{expanded=expanded===b.dataset.cat?"":b.dataset.cat;renderCategories();}));
+
+function renderSuggestions() {
+  const favorites = getStored("sc-favorites");
+  const recent = getStored("sc-recent");
+
+  renderChips("favorites", favorites, t().noFavorites);
+  renderChips("recent", recent, t().noRecent);
 }
-search.addEventListener("input",renderAirports);
-renderAirports();renderSelectedAirport();renderCategories();
+
+function renderChips(elementId, codes, emptyText) {
+  const element = $(elementId);
+  element.innerHTML = "";
+
+  const matching = codes
+    .map(code => airports.find(a => a.iata === code))
+    .filter(Boolean);
+
+  if (!matching.length) {
+    element.innerHTML = `<span class="empty">${emptyText}</span>`;
+    return;
+  }
+
+  matching.forEach(airport => {
+    const button = document.createElement("button");
+    button.className = "airport-chip";
+    button.textContent = `${airport.iata} · ${airport.name}`;
+    button.addEventListener("click", () => selectAirport(airport));
+    element.appendChild(button);
+  });
+}
+
+function renderAirportList(query = "") {
+  const element = $("airportResults");
+  element.innerHTML = "";
+
+  const matches = airports.filter(a =>
+    `${a.name} ${a.iata} ${a.country}`.toLowerCase()
+      .includes(query.toLowerCase())
+  );
+
+  if (!matches.length) {
+    element.innerHTML = `<span class="empty">${t().notFound}</span>`;
+    return;
+  }
+
+  matches.slice(0, 20).forEach(airport => {
+    const button = document.createElement("button");
+    button.className = "airport-chip";
+    button.textContent = `${airport.iata} · ${airport.name}`;
+    button.addEventListener("click", () => selectAirport(airport));
+    element.appendChild(button);
+  });
+}
+
+function selectAirport(airport) {
+  selected = airport;
+
+  let recent = getStored("sc-recent");
+  recent = [airport.iata, ...recent.filter(code => code !== airport.iata)].slice(0, 10);
+  saveStored("sc-recent", recent);
+
+  renderSuggestions();
+  renderSelectedAirport();
+  $("search").value = "";
+  renderAirportList();
+}
+
+function toggleFavorite(code) {
+  let favorites = getStored("sc-favorites");
+
+  if (favorites.includes(code)) {
+    favorites = favorites.filter(item => item !== code);
+  } else {
+    favorites = [code, ...favorites];
+  }
+
+  saveStored("sc-favorites", favorites);
+  renderSuggestions();
+  renderSelectedAirport();
+}
+
+function renderSelectedAirport() {
+  const element = $("selectedAirport");
+
+  if (!selected) {
+    element.innerHTML = "";
+    return;
+  }
+
+  const favorite = getStored("sc-favorites").includes(selected.iata);
+  const favoriteLabel = favorite ? "★" : "☆";
+
+  const safeWebsite = selected.website &&
+    /^https:\/\/[^ ]+$/i.test(selected.website)
+    ? selected.website
+    : null;
+
+  element.innerHTML = `
+    <div class="airport-card">
+      <div class="airport-heading">
+        <div>
+          <div class="airport-name"></div>
+          <div class="airport-code"></div>
+          <div class="country"></div>
+        </div>
+        <button class="favorite" id="favoriteButton"
+          aria-label="${favorite ? t().favoriteRemove : t().favoriteAdd}">
+          ${favoriteLabel}
+        </button>
+      </div>
+
+      <div class="status">${t().verified}</div>
+
+      <div class="section-label">${t().waitTitle}</div>
+      <div class="status">${t().wait}</div>
+
+      <div class="section-label">${t().rulesTitle}</div>
+      <div id="categories"></div>
+
+      ${safeWebsite
+        ? `<a class="website" href="${safeWebsite}" target="_blank" rel="noopener">${t().website}</a>`
+        : `<div class="status">${t().website}: not available</div>`
+      }
+    </div>
+  `;
+
+  element.querySelector(".airport-name").textContent = selected.name;
+  element.querySelector(".airport-code").textContent = selected.iata;
+  element.querySelector(".country").textContent = selected.country || "";
+
+  $("favoriteButton").addEventListener("click", () => toggleFavorite(selected.iata));
+
+  const categories = $("categories");
+
+  t().categories.forEach((name, index) => {
+    const item = document.createElement("div");
+    item.className = "category";
+
+    const button = document.createElement("button");
+    button.innerHTML = `<span></span><span>＋</span>`;
+    button.querySelector("span").textContent = name;
+
+    const content = document.createElement("div");
+    content.className = "category-content";
+
+    const inner = document.createElement("div");
+    inner.className = "category-inner";
+
+    const paragraph = document.createElement("p");
+    paragraph.textContent = t().categoryInfo[index];
+    inner.appendChild(paragraph);
+    content.appendChild(inner);
+
+    button.addEventListener("click", () => {
+      item.classList.toggle("open");
+      button.lastElementChild.textContent =
+        item.classList.contains("open") ? "−" : "＋";
+    });
+
+    item.appendChild(button);
+    item.appendChild(content);
+    categories.appendChild(item);
+  });
+}
+
+function updateLanguage() {
+  $("headline").textContent = t().headline;
+  $("subtitle").textContent = t().subtitle;
+  $("search").placeholder = t().search;
+  $("favoritesLabel").textContent = t().favorites;
+  $("recentLabel").textContent = t().recent;
+  $("allLabel").textContent = t().all;
+  $("footer").textContent = t().footer;
+  $("languageButton").textContent = language === "de" ? "EN" : "DE";
+
+  renderSuggestions();
+  renderAirportList($("search").value);
+  renderSelectedAirport();
+}
+
+$("languageButton").addEventListener("click", () => {
+  language = language === "de" ? "en" : "de";
+  localStorage.setItem("sc-language", language);
+  updateLanguage();
+});
+
+$("search").addEventListener("input", event => {
+  renderAirportList(event.target.value);
+});
+
+async function init() {
+  try {
+    const response = await fetch("./airports.json");
+    if (!response.ok) throw new Error("Airport data unavailable");
+
+    const data = await response.json();
+    airports = Array.isArray(data) ? data : data.airports;
+
+    if (!Array.isArray(airports)) throw new Error("Invalid airport data");
+
+    renderSuggestions();
+    renderAirportList();
+    updateLanguage();
+
+    const firstAirport = airports.find(a => a.iata === "FRA");
+    if (firstAirport) selectAirport(firstAirport);
+
+  } catch (error) {
+    $("airportResults").textContent =
+      "Die Flughafendaten konnten nicht geladen werden. Bitte versuche es später erneut.";
+  }
+}
+
+init();
 </script>
 </body>
 </html>
